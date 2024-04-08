@@ -15,16 +15,30 @@ class MyApp extends StatelessWidget {
           title: const Text('Stack Align Widget'),
         ),
         body: Center(
-          child: Container(
-            width: 200,
-            height: 200,
-            padding: const EdgeInsets.all(3),
-            child: const Image(
-              image: NetworkImage(
-                  './assets/images/logoflutter.png'), // URL gambar yang valid
+            child: Row(
+          children: <Widget>[
+            Spacer(flex: 5),
+            Container(
+              width: 80,
+              height: 80,
+              color: Colors.red,
             ),
-          ),
-        ),
+            Spacer(
+              flex: 1,
+            ),
+            Container(
+              width: 80,
+              height: 80,
+              color: Colors.blue,
+            ),
+            Spacer(flex: 5),
+            Container(
+              width: 80,
+              height: 80,
+              color: Colors.green,
+            )
+          ],
+        )),
       ),
     );
   }
