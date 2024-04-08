@@ -14,113 +14,16 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Stack Align Widget'),
         ),
-        body: Stack(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Flexible(
-                    flex: 1,
-                    child: Row(
-                      children: <Widget>[
-                        Flexible(
-                            flex: 1,
-                            child: Container(
-                              color: Colors.red,
-                            )),
-                        Flexible(
-                            flex: 1,
-                            child: Container(
-                              color: Colors.green,
-                            )),
-                      ],
-                    )),
-                Flexible(
-                    flex: 1,
-                    child: Row(
-                      children: <Widget>[
-                        Flexible(
-                            flex: 1,
-                            child: Container(
-                              color: Colors.blue,
-                            )),
-                        Flexible(
-                            flex: 1,
-                            child: Container(
-                              color: Colors.yellow,
-                            )),
-                      ],
-                    ))
-              ],
+        body: Center(
+          child: Container(
+            width: 200,
+            height: 200,
+            padding: const EdgeInsets.all(3),
+            child: const Image(
+              image: NetworkImage(
+                  './assets/images/logoflutter.png'), // URL gambar yang valid
             ),
-            ListView(
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.all(20),
-                      child: const Text(
-                        'Ini adalah text yang ada di dalam stack',
-                        style: TextStyle(fontSize: 40),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(20),
-                      child: const Text(
-                        'Ini adalah text yang ada di dalam stack',
-                        style: TextStyle(fontSize: 40),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(20),
-                      child: const Text(
-                        'Ini adalah text yang ada di dalam stack',
-                        style: TextStyle(fontSize: 40),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(20),
-                      child: const Text(
-                        'Ini adalah text yang ada di dalam stack',
-                        style: TextStyle(fontSize: 40),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(20),
-                      child: const Text(
-                        'Ini adalah text yang ada di dalam stack',
-                        style: TextStyle(fontSize: 40),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(20),
-                      child: const Text(
-                        'Ini adalah text yang ada di dalam stack',
-                        style: TextStyle(fontSize: 40),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(20),
-                      child: const Text(
-                        'Ini adalah text yang ada di dalam stack',
-                        style: TextStyle(fontSize: 40),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(20),
-                      child: const Text(
-                        'Ini adalah text yang ada di dalam stack',
-                        style: TextStyle(fontSize: 40),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            Align(
-                alignment: Alignment(0, 0.95),
-                child:
-                    ElevatedButton(child: Text("My Button"), onPressed: () {}))
-          ],
+          ),
         ),
       ),
     );
