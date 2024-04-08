@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,45 +12,114 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Flexible Layout'),
+          title: const Text('Stack Align Widget'),
         ),
-        body: Column(
+        body: Stack(
           children: <Widget>[
-            Flexible(
-              flex: 1,
-              child: Row(
-                children: <Widget>[
-                  Flexible(
+            Column(
+              children: <Widget>[
+                Flexible(
                     flex: 1,
-                    child: Container(
-                      color: Colors.yellow,
-                      margin: EdgeInsets.all(10),
-                    ),
-                  ),
-                  Flexible(
+                    child: Row(
+                      children: <Widget>[
+                        Flexible(
+                            flex: 1,
+                            child: Container(
+                              color: Colors.red,
+                            )),
+                        Flexible(
+                            flex: 1,
+                            child: Container(
+                              color: Colors.green,
+                            )),
+                      ],
+                    )),
+                Flexible(
                     flex: 1,
-                    child: Container(
-                      color: Colors.red,
-                      margin: EdgeInsets.all(10),
+                    child: Row(
+                      children: <Widget>[
+                        Flexible(
+                            flex: 1,
+                            child: Container(
+                              color: Colors.blue,
+                            )),
+                        Flexible(
+                            flex: 1,
+                            child: Container(
+                              color: Colors.yellow,
+                            )),
+                      ],
+                    ))
+              ],
+            ),
+            ListView(
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Container(
+                      margin: const EdgeInsets.all(20),
+                      child: const Text(
+                        'Ini adalah text yang ada di dalam stack',
+                        style: TextStyle(fontSize: 40),
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                    Container(
+                      margin: const EdgeInsets.all(20),
+                      child: const Text(
+                        'Ini adalah text yang ada di dalam stack',
+                        style: TextStyle(fontSize: 40),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(20),
+                      child: const Text(
+                        'Ini adalah text yang ada di dalam stack',
+                        style: TextStyle(fontSize: 40),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(20),
+                      child: const Text(
+                        'Ini adalah text yang ada di dalam stack',
+                        style: TextStyle(fontSize: 40),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(20),
+                      child: const Text(
+                        'Ini adalah text yang ada di dalam stack',
+                        style: TextStyle(fontSize: 40),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(20),
+                      child: const Text(
+                        'Ini adalah text yang ada di dalam stack',
+                        style: TextStyle(fontSize: 40),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(20),
+                      child: const Text(
+                        'Ini adalah text yang ada di dalam stack',
+                        style: TextStyle(fontSize: 40),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(20),
+                      child: const Text(
+                        'Ini adalah text yang ada di dalam stack',
+                        style: TextStyle(fontSize: 40),
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
-            Flexible(
-              flex: 2,
-              child: Container(
-                color: Colors.green,
-                margin: EdgeInsets.all(10),
-              ),
-            ),
-            Flexible(
-              flex: 1,
-              child: Container(
-                color: Colors.blue,
-                margin: EdgeInsets.all(10),
-              ),
-            ),
+            Align(
+                alignment: Alignment(0, 0.95),
+                child:
+                    ElevatedButton(child: Text("My Button"), onPressed: () {}))
           ],
         ),
       ),
