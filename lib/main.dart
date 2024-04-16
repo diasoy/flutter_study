@@ -13,41 +13,34 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
+      backgroundColor: Colors.green,
       appBar: AppBar(
-        leading: Icon(Icons.adb, color: Colors.white),
         title: Text(
           'AppBar Example',
-          style: TextStyle(color: Colors.white),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              print('Settings Button is clicked');
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              print('Search Button is clicked');
-            },
-          ),
-        ],
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.blue, Colors.blueAccent],
-              begin: FractionalOffset.topLeft,
-              end: FractionalOffset.bottomRight,
-            ),
-            image: DecorationImage(
-              image: AssetImage('assets/images/logoflutter.png'),
-              fit: BoxFit.none,
-              repeat: ImageRepeat.repeat,
-            ),
-          ),
         ),
       ),
+      body: Container(
+        margin: EdgeInsets.all(10),
+        child: ListView(children: <Widget>[
+          buildCard(Icons.account_box, 'Account Box1', Colors.white),
+          buildCard(Icons.account_box, 'Account Box2', Colors.green),
+          buildCard(Icons.account_box, 'Account Box3', Colors.black),
+          buildCard(Icons.account_box, 'Account Box4', Colors.blue),
+          buildCard(Icons.account_box, 'Account Box5', Colors.red),
+        ]),
+      ),
     ));
+  }
+
+  Card buildCard(IconData iconData, String text, Color color) {
+    return Card(
+        elevation: 5,
+        child: Row(
+          children: <Widget>[
+            Container(
+                margin: EdgeInsets.all(5), child: Icon(iconData, color: color)),
+            Text(text),
+          ],
+        ));
   }
 }
