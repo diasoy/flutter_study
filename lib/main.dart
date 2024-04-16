@@ -12,46 +12,44 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MainPage(),
-    );
-  }
-}
-
-class MainPage extends StatelessWidget {
-  const MainPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Media Query'),
-        ),
-        body: (MediaQuery.of(context).orientation == Orientation.portrait)
-            ? Column(
-                children: generateContainer(),
-              )
-            : Row(
-                children: generateContainer(),
-              ));
-  }
-
-  List<Widget> generateContainer() {
-    return <Widget>[
-      Container(
-        color: Colors.red,
-        height: 100,
-        width: 100,
+        home: Scaffold(
+      appBar: AppBar(
+        title: Text('Membuat Button'),
       ),
-      Container(
-        color: Colors.green,
-        height: 100,
-        width: 100,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          ElevatedButton(onPressed: () {}, child: Text('Elevated Button')),
+          Material(
+            elevation: 2,
+            borderRadius: BorderRadius.circular(20),
+            child: Container(
+                width: 150,
+                height: 50,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    gradient: LinearGradient(
+                      colors: [Colors.purple, Colors.blue],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    )),
+                child: Material(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.transparent,
+                    child: InkWell(
+                      splashColor: Colors.amber,
+                      borderRadius: BorderRadius.circular(20),
+                      onTap: () => {},
+                      child: Center(
+                          child: Text(
+                        'My Button',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w600),
+                      )),
+                    ))),
+          )
+        ],
       ),
-      Container(
-        color: Colors.blue,
-        height: 100,
-        width: 100,
-      ),
-    ];
+    ));
   }
 }
