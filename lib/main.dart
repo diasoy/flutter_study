@@ -27,14 +27,17 @@ class MainPage extends StatelessWidget {
             'Custom Card',
             style: TextStyle(color: Colors.white),
           ),
-          backgroundColor: Color(0xFF8C062F),
+          backgroundColor: Color.fromARGB(255, 71, 62, 52),
         ),
         body: Stack(
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFFFE5788), Color(0xFFF56D5D)],
+                  colors: [
+                    Color.fromARGB(255, 63, 56, 46),
+                    Color.fromARGB(255, 136, 80, 43)
+                  ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -48,7 +51,7 @@ class MainPage extends StatelessWidget {
                   child: Stack(
                     children: <Widget>[
                       Opacity(
-                        opacity: 0.8,
+                        opacity: 1,
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
@@ -66,13 +69,13 @@ class MainPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(4),
                           gradient: LinearGradient(
                             colors: [
-                              Colors.black,
-                              Colors.black54,
-                              Colors.black45,
-                              Colors.black38,
-                              Colors.black26,
+                              Colors.transparent,
                               Colors.black12,
-                              Colors.transparent
+                              Colors.black26,
+                              Colors.black38,
+                              Colors.black45,
+                              Colors.black54,
+                              Colors.black,
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
