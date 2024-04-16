@@ -6,72 +6,52 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  MyApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TextField Widget',
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text('TextField Widget'),
-          ),
-          body: Container(
-            margin: EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                TextField(
-                  decoration: InputDecoration(
-                    fillColor: Colors.indigo[100],
-                    filled: true,
-                    // prefix: Container(
-                    //   padding: EdgeInsets.all(10),
-                    //   child: Text('Prefix'),
-                    // ),
-                    suffix: Container(
-                      width: 5,
-                      height: 5,
-                      color: Colors.red,
-                    ),
-                    hintText: 'Enter your password',
-                    hintStyle: TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    labelText: 'Password',
-                    labelStyle: TextStyle(
-                      color: Colors.green,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    icon: Icon(Icons.lock),
-                    prefixIcon: Icon(Icons.lock),
-                    prefixText: "Password: ",
-                    prefixStyle: TextStyle(
-                        color: Colors.blue, fontWeight: FontWeight.bold),
-                    suffixIcon: Icon(Icons.remove_red_eye),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  maxLength: 10,
-                  obscureText: true,
-                  onChanged: (value) {
-                    setState(() {});
-                  },
-                  controller: controller,
-                ),
-                Text(controller.text)
-              ],
-            ),
-          )),
+      home: MainPage(),
     );
+  }
+}
+
+class MainPage extends StatelessWidget {
+  const MainPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Media Query'),
+        ),
+        body: (MediaQuery.of(context).orientation == Orientation.portrait)
+            ? Column(
+                children: generateContainer(),
+              )
+            : Row(
+                children: generateContainer(),
+              ));
+  }
+
+  List<Widget> generateContainer() {
+    return <Widget>[
+      Container(
+        color: Colors.red,
+        height: 100,
+        width: 100,
+      ),
+      Container(
+        color: Colors.green,
+        height: 100,
+        width: 100,
+      ),
+      Container(
+        color: Colors.blue,
+        height: 100,
+        width: 100,
+      ),
+    ];
   }
 }
