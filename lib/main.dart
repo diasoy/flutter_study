@@ -1,46 +1,45 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, prefer_const_constructors_in_immutables, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-      backgroundColor: Colors.green,
-      appBar: AppBar(
-        title: Text(
-          'AppBar Example',
-        ),
-      ),
-      body: Container(
-        margin: EdgeInsets.all(10),
-        child: ListView(children: <Widget>[
-          buildCard(Icons.account_box, 'Account Box1', Colors.white),
-          buildCard(Icons.account_box, 'Account Box2', Colors.green),
-          buildCard(Icons.account_box, 'Account Box3', Colors.black),
-          buildCard(Icons.account_box, 'Account Box4', Colors.blue),
-          buildCard(Icons.account_box, 'Account Box5', Colors.red),
-        ]),
-      ),
-    ));
-  }
-
-  Card buildCard(IconData iconData, String text, Color color) {
-    return Card(
-        elevation: 5,
-        child: Row(
-          children: <Widget>[
-            Container(
-                margin: EdgeInsets.all(5), child: Icon(iconData, color: color)),
-            Text(text),
-          ],
-        ));
+      title: 'TextField Widget',
+      home: Scaffold(
+          appBar: AppBar(
+            title: const Text('TextField Widget'),
+          ),
+          body: Container(
+            margin: EdgeInsets.all(20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                TextField(
+                  maxLength: 10,
+                  obscureText: true,
+                  onChanged: (value) {
+                    setState(() {});
+                  },
+                  controller: controller,
+                ),
+                Text(controller.text)
+              ],
+            ),
+          )),
+    );
   }
 }
