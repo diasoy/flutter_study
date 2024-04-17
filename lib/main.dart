@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, prefer_const_constructors_in_immutables, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, prefer_const_constructors_in_immutables, avoid_unnecessary_containers, sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,110 +19,170 @@ class MyApp extends StatelessWidget {
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
+  double getSmallDiameter(BuildContext context) =>
+      MediaQuery.of(context).size.width * 2 / 3;
+  double getBigDiameter(BuildContext context) =>
+      MediaQuery.of(context).size.width * 7 / 8;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Custom Card',
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Color.fromARGB(255, 71, 62, 52),
-        ),
+        backgroundColor: Color(0xFFEEEEEE),
         body: Stack(
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromARGB(255, 63, 56, 46),
-                    Color.fromARGB(255, 136, 80, 43)
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
+          children: [
+            Positioned(
+              right: -getSmallDiameter(context) / 3,
+              top: -getSmallDiameter(context) / 3,
+              child: Container(
+                width: getSmallDiameter(context),
+                height: getSmallDiameter(context),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                        colors: [Color(0xFFB226B2), Color(0xFFFF6DA7)],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter)),
               ),
             ),
-            Center(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.8,
-                height: MediaQuery.of(context).size.height * 0.7,
-                child: Card(
-                  child: Stack(
-                    children: <Widget>[
-                      Opacity(
-                        opacity: 1,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                  'https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.7,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.transparent,
-                              Colors.black12,
-                              Colors.black26,
-                              Colors.black38,
-                              Colors.black45,
-                              Colors.black54,
-                              Colors.black,
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(20),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'Beautiful Sunset at Paddy Field',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'One of the most beautiful sunset I have ever seen',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'Posted on 20th October 2020',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+            Positioned(
+              left: -getSmallDiameter(context) / 4,
+              top: -getSmallDiameter(context) / 3,
+              child: Container(
+                child: Center(
+                  child: Text("dribblee",
+                      style: TextStyle(
+                          fontFamily: "Pacifico",
+                          fontSize: 30,
+                          color: Colors.white)),
                 ),
+                width: getBigDiameter(context),
+                height: getBigDiameter(context),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                        colors: [Color(0xFFB226B2), Color(0xFFFF6DA7)],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter)),
               ),
-            )
+            ),
+            Positioned(
+              right: -getBigDiameter(context) / 2,
+              bottom: -getBigDiameter(context) / 2,
+              child: Container(
+                width: getBigDiameter(context),
+                height: getBigDiameter(context),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, color: Color(0xFFF3E9EE)),
+              ),
+            ),
+            Align(
+                alignment: Alignment.bottomCenter,
+                child: ListView(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      margin: EdgeInsets.fromLTRB(20, 400, 20, 10),
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 25),
+                      child: Column(
+                        children: [
+                          TextField(
+                            decoration: InputDecoration(
+                                icon: Icon(Icons.email),
+                                iconColor: Colors.pinkAccent,
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xFFFF4891))),
+                                labelText: "Email",
+                                labelStyle: TextStyle(color: Colors.black)),
+                          ),
+                          TextField(
+                            obscureText: true,
+                            decoration: InputDecoration(
+                                icon: Icon(Icons.lock),
+                                iconColor: Colors.pinkAccent,
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xFFFF4891))),
+                                labelText: "Password",
+                                labelStyle: TextStyle(color: Colors.black)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        margin: EdgeInsets.fromLTRB(0, 0, 20, 20),
+                        child: Text(
+                          "Forgot Password?",
+                          style:
+                              TextStyle(color: Colors.pinkAccent, fontSize: 14),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(20, 0, 20, 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            height: 40,
+                            child: Container(
+                              child: Material(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(20),
+                                  splashColor: Colors.pinkAccent,
+                                  onTap: () {},
+                                  child: Center(
+                                    child: Text(
+                                      "Sign In",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  gradient: LinearGradient(
+                                      colors: [
+                                        Color(0xFFB226B2),
+                                        Color(0xFFFF6DA7)
+                                      ],
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter)),
+                            ),
+                          ),
+                          FloatingActionButton(
+                            onPressed: () {},
+                            mini: true,
+                            elevation: 0,
+                            child: Image(
+                              image: AssetImage("assets/facebook.png"),
+                            ),
+                          ),
+                          FloatingActionButton(
+                            onPressed: () {},
+                            mini: true,
+                            elevation: 0,
+                            child: Image(
+                              image: AssetImage("assets/google.png"),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ))
           ],
         ),
       ),
