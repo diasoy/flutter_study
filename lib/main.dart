@@ -20,28 +20,47 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TabBar myTabBar = TabBar(
+      indicatorColor: Colors.red,
+      indicator: BoxDecoration(
+        color: Colors.blue,
+      ),
+      tabs: [
+        Tab(
+          icon: Icon(Icons.comment),
+          text: "Comments",
+        ),
+        Tab(
+          icon: Icon(Icons.computer),
+          text: "Computer",
+        ),
+      ],
+    );
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(200),
-          child: AppBar(
-            backgroundColor: Colors.amber,
-            flexibleSpace: Positioned(
-              bottom: 0,
-              right: 0,
-              child: Container(
-                margin: EdgeInsets.all(20),
-                child: Text(
-                  'AppBar with Custom Height',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+      home: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('TabBar'),
+          ),
+          bottomNavigationBar: PreferredSize(
+            preferredSize: Size.fromHeight(myTabBar.preferredSize.height),
+            child: Container(
+              color: Colors.grey,
+              child: myTabBar,
             ),
+          ),
+          body: TabBarView(
+            children: [
+              Center(
+                child: Text('Comments'),
+              ),
+              Center(
+                child: Text('Computer'),
+              ),
+            ],
           ),
         ),
       ),
