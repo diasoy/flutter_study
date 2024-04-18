@@ -1,10 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, prefer_const_constructors_in_immutables, avoid_unnecessary_containers, sort_child_properties_last
-
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_study/post_result_models.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -15,73 +13,33 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late AudioPlayer audioPlayer;
-  String durasi = "00:00:00";
-
-  _MyAppState() {
-    audioPlayer = AudioPlayer();
-    audioPlayer.onAudioPositionChanged.listen((Duration duration) {
-      setState(() {
-        durasi = duration.toString().split('.').first;
-      });
-    });
-    audioPlayer.setReleaseMode(ReleaseMode.LOOP);
-  }
-
-  void playSound() async {
-    await audioPlayer.play('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
-  }
-
-  void pauseSound() async {
-    await audioPlayer.pause();
-  }
-
-  void resumeSound() async {
-    await audioPlayer.resume();
-  }
-
-  void stopSound() async {
-    await audioPlayer.stop();
-  }
+  PostResult? postResult;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: Text('Audio Player')),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  playSound();
-                },
-                child: Text('Play'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  pauseSound();
-                },
-                child: Text('Pause'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  resumeSound();
-                },
-                child: Text('Resume'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  stopSound();
-                },
-                child: Text('Stop'),
-              ),
-              Text(durasi, style: TextStyle(fontSize: 20)),
-            ],
-          ),
-        ),
+        home: Scaffold(
+      appBar: AppBar(
+        title: const Text('API Demo'),
       ),
-    );
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text((postResult != null)
+              ? "${postResult!.id} | ${postResult!.name} | ${postResult!.job} | ${postResult!.created}"
+              : 'Belum ada data'),
+          ElevatedButton(
+            onPressed: () {
+              PostResult.connectToAPI("Fajar", "Dokter").then((value) {
+                postResult = value;
+                setState(() {});
+              });
+            },
+            child: Text('Send POST Request'),
+          ),
+        ],
+      )),
+    ));
   }
 }
