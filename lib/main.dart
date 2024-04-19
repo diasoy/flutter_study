@@ -1,85 +1,85 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  double myPadding = 5;
+  TextEditingController controller = TextEditingController(text: 'No Name');
+  bool isOn = false;
+
+  void saveData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('name', controller.text);
+    prefs.setBool('isOn', isOn);
+  }
+
+  void loadData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      controller.text = prefs.getString('name') ?? 'No Name';
+      isOn = prefs.getBool('isOn') ?? false;
+    });
+  }
+
+  Future<String> getName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('name') ?? 'No Name';
+  }
+
+  Future<bool> getIsOn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('isOn') ?? false;
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-      appBar: AppBar(
-        title: const Text('Animated Padding'),
-      ),
-      body: Column(
-        children: <Widget>[
-          Flexible(
-            child: Row(
-              children: <Widget>[
-                Flexible(
-                    flex: 1,
-                    child: AnimatedPadding(
-                      duration: const Duration(seconds: 1),
-                      padding: EdgeInsets.all(myPadding),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            myPadding = myPadding == 5 ? 20 : 5;
-                          });
-                        },
-                        child: Container(
-                          color: Colors.red,
-                        ),
-                      ),
-                    )),
-                Flexible(
-                    flex: 1,
-                    child: AnimatedPadding(
-                      duration: const Duration(seconds: 1),
-                      padding: EdgeInsets.all(myPadding),
-                      child: Container(
-                        color: Colors.green,
-                      ),
-                    ))
-              ],
-            ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Shared Preferences'),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              TextField(
+                controller: controller,
+              ),
+              Switch(
+                value: isOn,
+                onChanged: (value) {
+                  setState(() {
+                    isOn = value;
+                  });
+                },
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  saveData();
+                },
+                child: const Text('Save'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  loadData();
+                },
+                child: const Text('Load'),
+              )
+            ],
           ),
-          Flexible(
-            child: Row(
-              children: <Widget>[
-                Flexible(
-                    flex: 1,
-                    child: AnimatedPadding(
-                      duration: const Duration(seconds: 1),
-                      padding: EdgeInsets.all(myPadding),
-                      child: Container(
-                        color: Colors.blue,
-                      ),
-                    )),
-                Flexible(
-                    flex: 1,
-                    child: AnimatedPadding(
-                      duration: const Duration(seconds: 1),
-                      padding: EdgeInsets.all(myPadding),
-                      child: Container(
-                        color: Colors.yellow,
-                      ),
-                    ))
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
-    ));
+    );
   }
 }
