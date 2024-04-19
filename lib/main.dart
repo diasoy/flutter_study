@@ -16,6 +16,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   PostResult? postResult;
   User? user;
+  String output = "no data";
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +29,15 @@ class _MyAppState extends State<MyApp> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text((user != null)
-                      ? "${user!.id} | ${user!.name}"
-                      : 'Belum ada data'),
+                  Text(output),
                   ElevatedButton(
                     onPressed: () {
-                        User.connectToAPI("10")
-                            .then((value) {
-                          setState(() {
-                            user = value;
-                          });
+                        User.getUsers("2").then((users) {
+                          output = "";
+                          for (int i = 0; i < users.length; i++) {
+                            output = "$output[${users[i].id}] ${users[i].name}\n";
+                          }
+                          setState(() {});
                         });
                     },
                     child: const Text('Send GET Request'),
