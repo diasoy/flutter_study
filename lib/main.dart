@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/post_result_models.dart';
-import 'package:flutter_study/user_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,36 +12,77 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  PostResult? postResult;
-  User? user;
-  String output = "no data";
+  bool isOn = false;
+
+  Widget myWidget = Container(
+    width: 200,
+    height: 100,
+    decoration: BoxDecoration(
+      color: Colors.blue,
+      border: Border.all(color: Colors.black, width: 2),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-          appBar: AppBar(
-            title: const Text('API Demo'),
-          ),
-          body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(output),
-                  ElevatedButton(
-                    onPressed: () {
-                        User.getUsers("2").then((users) {
-                          output = "";
-                          for (int i = 0; i < users.length; i++) {
-                            output = "$output[${users[i].id}] ${users[i].name}\n";
-                          }
-                          setState(() {});
-                        });
-                    },
-                    child: const Text('Send GET Request'),
-                  ),
-                ],
-              )),
-        ));
+      appBar: AppBar(
+        title: const Text('Switch & AnimatedSwitcher'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              transitionBuilder: (child, animation) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: child,
+                );
+              },
+              child: myWidget,
+            ),
+            Text(
+              isOn ? 'Switch is Red' : 'Switch is Blue',
+              style: const TextStyle(fontSize: 20),
+            ),
+            Switch(
+              activeColor: Colors.red,
+              activeTrackColor: Colors.red[200],
+              inactiveThumbColor: Colors.blue,
+              inactiveTrackColor: Colors.blue[200],
+              value: isOn,
+              onChanged: (value) {
+                setState(() {
+                  isOn = value;
+                  if (isOn) {
+                    myWidget = Container(
+                      key: const ValueKey(1),
+                      width: 200,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        border: Border.all(color: Colors.black, width: 2),
+                      ),
+                    );
+                  } else {
+                    myWidget = Container(
+                      width: 200,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        border: Border.all(color: Colors.black, width: 2),
+                      ),
+                    );
+                  }
+                });
+              },
+            )
+          ],
+        ),
+      ),
+    ));
   }
 }
