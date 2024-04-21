@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_study/application_color.dart';
 import 'package:provider/provider.dart';
 
+import 'cart.dart';
+import 'money.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -14,48 +17,107 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: ChangeNotifierProvider<ApplicationColor>(
-      create: (context) => ApplicationColor(),
+        home: MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => Money()),
+        ChangeNotifierProvider(create: (context) => Cart()),
+      ],
       child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.black,
-            title: Consumer<ApplicationColor>(
-                builder: (context, applicationColor, _) => Text(
-                      'Provider State Management',
-                      style: TextStyle(color: applicationColor.color),
-                    )),
+        floatingActionButton: Consumer<Money>(
+          builder: (context, money, _) => Consumer<Cart>(
+            builder: (context, cart, _) => FloatingActionButton(
+              onPressed: () {
+                if (money.balance >= 500) {
+                  cart.quantity += 1;
+                  money.balance -= 500;
+                }
+              },
+              child: Icon(Icons.add_shopping_cart),
+              backgroundColor: Colors.purple,
+            ),
           ),
-          body: Center(
-            child: Column(
+          child: Consumer<Cart>(
+            builder: (context, cart, _) => FloatingActionButton(
+              onPressed: () {
+                cart.quantity += 1;
+                context.read<Money>().balance -= 500;
+              },
+              child: Icon(Icons.add_shopping_cart),
+              backgroundColor: Colors.purple,
+            ),
+            child: FloatingActionButton(
+              onPressed: () {},
+              child: Icon(Icons.add),
+              backgroundColor: Colors.purple,
+            ),
+          ),
+        ),
+        appBar: AppBar(
+          title: Text("Multi Provider"),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Consumer<ApplicationColor>(
-                    builder: (context, applicationColor, _) =>
-                        AnimatedContainer(
-                      margin: EdgeInsets.all(10),
-                      height: 100,
-                      width: 100,
-                      color: applicationColor.color,
-                      duration: Duration(seconds: 1),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(child: Text('AB')),
-                      Consumer<ApplicationColor>(
-                        builder: (context, applicationColor, _) => Switch(
-                          value: applicationColor.isLightBlue,
-                          onChanged: (value) {
-                            applicationColor.isLightBlue = value;
-                          },
+                  Text('Balance'),
+                  Container(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Consumer<Money>(
+                        builder: (context, money, _) => Text(
+                          money.balance.toString(),
+                          style: TextStyle(
+                              color: Colors.purple,
+                              fontWeight: FontWeight.w700),
                         ),
                       ),
-                      Container(child: Text('CD')),
-                    ],
+                    ),
+                    height: 40,
+                    width: 150,
+                    margin: EdgeInsets.all(5),
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                        color: Colors.blue[100],
+                        border: Border.all(color: Colors.blue, width: 2),
+                        borderRadius: BorderRadius.circular(5)),
                   )
-                ]),
-          )),
+                ],
+              ),
+              Container(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Consumer<Cart>(
+                    builder: (context, cart, _) => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Apple (500) x " + cart.quantity.toString(),
+                            style: TextStyle(color: Colors.black)),
+                        Text((500 * cart.quantity).toString(),
+                            style: TextStyle(color: Colors.black)),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("10000", style: TextStyle(color: Colors.green)),
+                      ],
+                    ),
+                  ),
+                ),
+                height: 40,
+                margin: EdgeInsets.all(5),
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.purple, width: 2),
+                    borderRadius: BorderRadius.circular(5)),
+              )
+            ],
+          ),
+        ),
+      ),
     ));
   }
 }
